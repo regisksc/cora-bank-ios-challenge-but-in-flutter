@@ -2,15 +2,16 @@ name: Flutter CI
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   install-flutter:
     runs-on: ubuntu-latest
     steps:
-    - uses: subosito/flutter-action@v2
-      with: 
-        channel: 'stable'
-        cache: true
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: "stable"
+          cache: true
 
   analyze:
     runs-on: ubuntu-latest
