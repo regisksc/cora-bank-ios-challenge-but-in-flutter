@@ -1,9 +1,8 @@
-name: cloudwalk_challenge
-repository: https://github.com/regisksc/cloudwalk_challenge_mock
+name: cora_challenge_flutter
+repository: https://github.com/regisksc/cora_challenge_flutter_mock
 
 packages:
   - app
-  - packages/**
 
 scripts:
   build:get:
@@ -57,19 +56,19 @@ scripts:
         - test
       scope:
         - "design_system"
-        - "cloudwalk_challenge"
+        - "cora_challenge_flutter"
 
   test:all: melos run test --no-select
   test:update-goldens:all: melos run test:update-goldens --no-select
 
   ###################################
-    
+
   run:dev-app:
     exec: flutter run -t 'app/lib/main_dev.dart' --flavor dev
     select-package:
-      scope: "cloudwalk_challenge"
+      scope: "cora_challenge_flutter"
 
   run:prod-app:
     exec: flutter run -t 'app/lib/main_prod.dart' --flavor prod
     select-package:
-      scope: "cloudwalk_challenge"
+      scope: "cora_challenge_flutter"
