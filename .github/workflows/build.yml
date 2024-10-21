@@ -1,0 +1,44 @@
+name: build artifact
+
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - "releases/**"
+
+jobs:
+  install-flutter:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: subosito/flutter-action@v2
+      with: 
+        channel: 'stable'
+        cache: true
+
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: install-flutter
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/analyze
+
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: install-flutter
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/test
+
+  build-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [analyze, test]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./.github/actions/apk
+        with:
+          dart-define: 'base_url=xpto'
